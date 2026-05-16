@@ -1,4 +1,13 @@
-## [H-1] Potential loss of funds can occur if the user exceeds the fixed price of 1e18
+# Fuzz Exercise by Tincho Abbate
+This is a short and simple exercise to start sharpening your smart contract fuzzing skills with Foundry.
+
+The scenario is simple. There's a registry contract that allows callers to register by paying a fixed fee in ETH. If the caller sends too little ETH, execution should revert. If the caller sends too much ETH, the contract should give back the change.
+
+Things look good according to the unit test we coded in the `Registry.t.sol` contract.
+
+Your goal is to code at least one fuzz test for the Registry contract. By following the brief specification above, the test must be able to detect a bug in the register function.
+
+## [H-1] Potential loss of funds can occur if the user exceeds the fixed price of `1e18`
 **Description:** When invoking `Registry::register`, a participant can exceed the fixed price of `1e18`, as there are no additional checks to verify if the price has been exceeded or no actions to send the user their change.
 
 **Impact:** The participant's balance is not refunded when exceeding the fixed price of `1e18`, potentially resulting in a loss of funds
